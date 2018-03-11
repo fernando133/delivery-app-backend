@@ -13,6 +13,8 @@ gem 'sqlite3'
 gem 'mysql2'
 
 gem 'graphql', '1.7.4'
+gem 'bcrypt', '~> 3.1.7'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180310232130) do
+ActiveRecord::Schema.define(version: 20180311142043) do
 
   create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -21,8 +21,10 @@ ActiveRecord::Schema.define(version: 20180310232130) do
   create_table "complaints", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
     t.string "message"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_complaints_on_user_id"
   end
 
   create_table "delivery_times", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -81,6 +83,8 @@ ActiveRecord::Schema.define(version: 20180310232130) do
     t.string "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_sugestions_on_user_id"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -89,6 +93,7 @@ ActiveRecord::Schema.define(version: 20180310232130) do
     t.string "celphone"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "password_digest"
   end
 
   create_table "view_notifications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -101,12 +106,14 @@ ActiveRecord::Schema.define(version: 20180310232130) do
     t.index ["user_id"], name: "index_view_notifications_on_user_id"
   end
 
+  add_foreign_key "complaints", "users"
   add_foreign_key "notifications", "admins"
   add_foreign_key "notifications", "promotions"
   add_foreign_key "order_products", "orders"
   add_foreign_key "order_products", "products"
   add_foreign_key "orders", "delivery_times"
   add_foreign_key "orders", "users"
+  add_foreign_key "sugestions", "users"
   add_foreign_key "view_notifications", "notifications"
   add_foreign_key "view_notifications", "users"
 end
