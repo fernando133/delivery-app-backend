@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180311142043) do
+ActiveRecord::Schema.define(version: 20180312192424) do
 
   create_table "admins", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -70,6 +70,16 @@ ActiveRecord::Schema.define(version: 20180311142043) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "promotional_codes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.date "validUntil"
+    t.string "code"
+    t.boolean "visible?"
+    t.bigint "orders_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["orders_id"], name: "index_promotional_codes_on_orders_id"
+  end
+
   create_table "promotions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
     t.integer "position"
@@ -113,6 +123,7 @@ ActiveRecord::Schema.define(version: 20180311142043) do
   add_foreign_key "order_products", "products"
   add_foreign_key "orders", "delivery_times"
   add_foreign_key "orders", "users"
+  add_foreign_key "promotional_codes", "orders", column: "orders_id"
   add_foreign_key "sugestions", "users"
   add_foreign_key "view_notifications", "notifications"
   add_foreign_key "view_notifications", "users"
