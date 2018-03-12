@@ -5,9 +5,9 @@ class Resolvers::CreateSugestion < GraphQL::Function
 
 	type Types::SugestionType
 
-	def call(_obj, args, _ctx)
-		User.create!(
-			title: args[:tile],
+	def call(_obj, args, ctx)
+		Sugestion.create!(
+			title: args[:title],
 			message: args[:message],
 			user: ctx[:current_user]
 		)
